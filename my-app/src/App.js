@@ -4,34 +4,34 @@ import './App.css';
 import React from 'react';
 
 function App() {
+  // const arr = [ 1, 2, 3, 4, 5];
+  // const obj = {name: 'John', surname: 'Smith'};
+  // const li1 = <li>text1</li>;
+  // const li2 = <li>text2</li>;
+  // const li3 = <li>text3</li>;
+  const attr = 'block';
   return (
     <div className="wrapper">
-      <p className='blue-text'>Lorem ipsum</p> 
-      <p className='green-text'>some text</p>
-      <input type="text" />
-      <br />
-      <input type="number" />
-
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10</li>
-      </ul>
-
-      <table>
-        <thead>
-          <tr>
-            <td>table</td>
-          </tr>
-        </thead>
-      </table>
+      <div id={attr}>
+        text
+      </div>
+      {/* <ul>
+        {li1}
+        {li2}
+        {li3}
+      </ul> */}
+      {/* <p>
+        name: <span>{obj.name}</span>, 
+        <br />
+        surname: <span>{obj.surname}</span>
+      </p> */}
+      {/* <ul>
+        <li>{arr[0]}</li>
+        <li>{arr[1]}</li>
+        <li>{arr[2]}</li>
+        <li>{arr[3]}</li>
+        <li>{arr[4]}</li>
+      </ul> */}
     </div>
   );
 }
