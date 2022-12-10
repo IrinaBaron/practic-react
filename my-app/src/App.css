@@ -53,3 +53,8 @@
 .green-text {
   color: green;
 }
+
+span {
+  display: block;
+  margin: 20px;
+}
