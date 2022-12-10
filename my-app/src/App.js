@@ -33,22 +33,44 @@ import React, { useState } from 'react';
 //   </div>
 // }
 
+// function App() {
+//   let [name, setName] = useState('Ivan');
+//   let [surname, setSurname] = useState('Ivanov');
+//   let [age, setAge] = useState(20);
+//   let [inStatus, setStatus] = useState(false);
+
+//   return <div>
+//     <span>{name}</span>
+//     <span>{surname}</span>
+//     <span>{age}</span>
+//     <span>{inStatus ? 'blocked' : 'unblocked'}</span>
+//     <button onClick={() => setName('Dimitar')}>change name</button>
+//     <button onClick={() => setSurname('Dimitrov')}>change surname</button>
+//     <button onClick={() => setAge(age + 1)}>add age</button>
+//     <button onClick={() => setAge(age - 1)}>remove age</button>
+//     <button onClick={() => setStatus(!inStatus)}>{inStatus ? 'unblock' : 'block'}</button>
+//   </div>
+// }
+
+function showYear(age) {
+  let year = new Date().getFullYear() - age
+  return year
+}
+
 function App() {
-  let [name, setName] = useState('Ivan');
-  let [surname, setSurname] = useState('Ivanov');
-  let [age, setAge] = useState(20);
-  let [inStatus, setStatus] = useState(false);
+  const [value1, setValue1] = useState('');
+  // const [value2, setValue2] = useState('');
+
+  function handleChange(e) {
+    setValue1(e.target.value)
+  }
 
   return <div>
-    <span>{name}</span>
-    <span>{surname}</span>
-    <span>{age}</span>
-    <span>{inStatus ? 'blocked' : 'unblocked'}</span>
-    <button onClick={() => setName('Dimitar')}>change name</button>
-    <button onClick={() => setSurname('Dimitrov')}>change surname</button>
-    <button onClick={() => setAge(age + 1)}>add age</button>
-    <button onClick={() => setAge(age - 1)}>remove age</button>
-    <button onClick={() => setStatus(!inStatus)}>{inStatus ? 'unblock' : 'block'}</button>
+    <input value={value1} onChange={handleChange} />
+    <p>{showYear(value1)}</p>
+
+    {/* <input value={value2} onChange={ e => setValue2( e.target.value)} />
+    <p>text: {value2 ** 3}</p> */}
   </div>
 }
 
