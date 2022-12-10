@@ -36,20 +36,19 @@ import React, { useState } from 'react';
 function App() {
   let [name, setName] = useState('Ivan');
   let [surname, setSurname] = useState('Ivanov');
-  let [age, setAge] = useState('20');
+  let [age, setAge] = useState(20);
   let [inStatus, setStatus] = useState(false);
 
   return <div>
     <span>{name}</span>
     <span>{surname}</span>
     <span>{age}</span>
-    <span>{inStatus ? 'заблокирован' : 'не заблокирован'}</span>
+    <span>{inStatus ? 'blocked' : 'unblocked'}</span>
     <button onClick={() => setName('Dimitar')}>change name</button>
     <button onClick={() => setSurname('Dimitrov')}>change surname</button>
-    {/* <button onClick={() => setStatus('заблокирован')}>заблокировать</button> */}
-
-    {/* <button onClick={() => setStatus('не заблокирован')}>разблокировать</button> */}
-    <button onClick={() => setStatus(!inStatus)}>{inStatus ? 'разблокировать' : 'заблокировать'}</button>
+    <button onClick={() => setAge(age + 1)}>add age</button>
+    <button onClick={() => setAge(age - 1)}>remove age</button>
+    <button onClick={() => setStatus(!inStatus)}>{inStatus ? 'unblock' : 'block'}</button>
   </div>
 }
 
