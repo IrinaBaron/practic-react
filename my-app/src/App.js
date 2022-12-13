@@ -52,25 +52,48 @@ import React, { useState } from 'react';
 //   </div>
 // }
 
-function showYear(age) {
-  let year = new Date().getFullYear() - age
-  return year
-}
+// function showYear(age) {
+//   let year = new Date().getFullYear() - age
+//   return year
+// }
+
+// function App() {
+//   const [value1, setValue1] = useState('');
+//   // const [value2, setValue2] = useState('');
+
+//   function handleChange(e) {
+//     setValue1(e.target.value)
+//   }
+
+//   return <div>
+//     <input value={value1} onChange={handleChange} />
+//     <p>{showYear(value1)}</p>
+
+//     {/* <input value={value2} onChange={ e => setValue2( e.target.value)} />
+//     <p>text: {value2 ** 3}</p> */}
+//   </div>
+// }
 
 function App() {
-  const [value1, setValue1] = useState('');
-  // const [value2, setValue2] = useState('');
+  const [value1, setValue1] = useState(0);
+  const [value2, setValue2] = useState(0);
+  const [result, setResult] = useState(0)
 
-  function handleChange(e) {
-    setValue1(e.target.value)
+  function handleChange() {
+    setResult(Number(value1) + Number(value2))
+  }
+
+  function addChange() {
+    setResult(Number(value1) * Number(value2));
   }
 
   return <div>
-    <input value={value1} onChange={handleChange} />
-    <p>{showYear(value1)}</p>
+    <input value={value1} onChange={e => setValue1(e.target.value)} />
 
-    {/* <input value={value2} onChange={ e => setValue2( e.target.value)} />
-    <p>text: {value2 ** 3}</p> */}
+    <input value={value2} onChange={ e => setValue2(e.target.value)} />
+    <button onClick={handleChange}>btn</button>
+    <button onClick={addChange}>btn 2</button>
+    <p>text: {result}</p>
   </div>
 }
 
