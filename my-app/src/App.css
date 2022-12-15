@@ -43,7 +43,14 @@
   max-width: 1230px;
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
+.wrapper__box {
+  max-width: calc(33.3333% - 20px) ;
+  width: 100%;
 }
 
 .blue-text {
@@ -62,4 +69,19 @@ span, p {
 input, textarea, select, button {
   margin: 10px;
   display: block;
+}
+
+.relative {
+  position: relative;
+}
+
+.pad-5 {
+  padding: 5px;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
 }
