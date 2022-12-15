@@ -54,7 +54,12 @@
   color: green;
 }
 
-span {
+span, p {
   display: block;
-  margin: 20px;
+  margin: 10px;
+}
+
+input, textarea, select, button {
+  margin: 10px;
+  display: block;
 }

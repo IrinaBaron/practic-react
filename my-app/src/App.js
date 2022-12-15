@@ -75,12 +75,25 @@ import React, { useState } from 'react';
 // }
 
 function App() {
-  const [value1, setValue1] = useState(0);
-  const [value2, setValue2] = useState(0);
-  const [result, setResult] = useState(0)
+  const [value1, setValue1] = useState(new Date());
+  const [value2, setValue2] = useState(new Date());
+  const [value3, setValue3] = useState('');
+  const [result, setResult] = useState(0);
+  const [checked, setChecked] = useState(true);
+  const texts = ['text1', 'text2', 'text3']
 
   function handleChange() {
-    setResult(Number(value1) + Number(value2))
+    let date1 = new Date(value1);
+    let date2 = new Date(value2);
+    let result = ((date1.getTime() - date2.getTime()) / (1000 * 3600 * 24));
+    setResult(result)
+    // setResult(Number(value1) + Number(value2))
+  }
+  let message;
+  if(checked) {
+    message = <p>сообщение 1</p>
+  } else {
+    message = <p>сообщение 2</p>
   }
 
   function addChange() {
@@ -93,7 +106,14 @@ function App() {
     <input value={value2} onChange={ e => setValue2(e.target.value)} />
     <button onClick={handleChange}>btn</button>
     <button onClick={addChange}>btn 2</button>
+    <textarea value={value3} onChange={e => setValue3(e.target.value)}/>
+    <p>{value3}</p>
     <p>text: {result}</p>
+
+    <input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
+    <button onClick={() => setChecked(!checked)}>btn 2</button>
+    <p>состояние: {checked ? 'отмечен' : 'не отмечен'}</p>
+    <div>{message}</div>
   </div>
 }
 
