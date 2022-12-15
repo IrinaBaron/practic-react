@@ -75,12 +75,23 @@ import React, { useState } from 'react';
 // }
 
 function App() {
-  const [value1, setValue1] = useState(new Date());
+  const [value1, setValue1] = useState('2022-11-10');
   const [value2, setValue2] = useState(new Date());
   const [value3, setValue3] = useState('');
   const [result, setResult] = useState(0);
   const [checked, setChecked] = useState(true);
-  const texts = ['text1', 'text2', 'text3']
+  const [valueSelect, setValueSelect] = useState('');
+  const [value, setValue] = useState(1)
+  const texts = ['text1', 'text2', 'text3'];
+  const [notes, setNotes] = useState([1,2,3,4,5]);
+
+  const options = texts.map((text, index) => {
+    return <option key={index} value={index}>{text}</option>
+  });
+
+  const resultArr = notes.map( (note, index) => {
+    return <p key={index}>{note}</p>
+  })
 
   function handleChange() {
     let date1 = new Date(value1);
@@ -100,10 +111,22 @@ function App() {
     setResult(Number(value1) * Number(value2));
   }
 
-  return <div>
-    <input value={value1} onChange={e => setValue1(e.target.value)} />
+  function addElem() {
+    const copyArr = Object.assign([], notes)
+    copyArr.push(6);
+    setNotes(copyArr)
+  }
 
-    <input value={value2} onChange={ e => setValue2(e.target.value)} />
+  function removeElem() {
+    const copyArrNew = Object.assign([], notes);
+    copyArrNew.splice(resultArr.index, 1);
+    setNotes(copyArrNew)
+  }
+
+  return <div>
+    <input defaultValue={value1} onChange={e => setValue1(e.target.value)} />
+
+    <input defaultValue={value2} onChange={ e => setValue2(e.target.value)} />
     <button onClick={handleChange}>btn</button>
     <button onClick={addChange}>btn 2</button>
     <textarea value={value3} onChange={e => setValue3(e.target.value)}/>
@@ -114,6 +137,34 @@ function App() {
     <button onClick={() => setChecked(!checked)}>btn 2</button>
     <p>состояние: {checked ? 'отмечен' : 'не отмечен'}</p>
     <div>{message}</div>
+
+    <select value={valueSelect} onChange={(e) => setValueSelect(e.target.value)}>
+      {options}
+    </select>
+    <p>
+      ваш выбор: {texts[valueSelect]}
+    </p>
+
+    <label>
+      <input type="radio" value="HTML" name="radio" checked={value === 'HTML' ? true : false} onChange={e => setValue(e.target.value)} />
+      HTML
+    </label>
+    <label>
+      <input type="radio" value="JS" name="radio" checked={value === 'JS' ? true : false} onChange={e => setValue(e.target.value)}/>
+      JS
+    </label>
+    <label>
+      <input type="radio" value="CSS" name="radio" checked={value === 'CSS' ? true : false} onChange={e => setValue(e.target.value)}/>
+      CSS
+    </label>
+    <p>{value === 'JS' ?  value + ' вы молодец' : value}</p>
+
+    <button onClick={addElem} onChange={addElem}>add elem in arr</button>
+    <button onClick={removeElem} onChange={removeElem}>remove elem from arr</button>
+    <div>
+
+      {resultArr}
+    </div>
   </div>
 }
 
