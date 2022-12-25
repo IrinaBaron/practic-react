@@ -102,6 +102,26 @@ const initNotes = [
 		prop3: 'value33',
 	},
 ];
+const initNotes2 = [
+	{
+		id: id(),
+		name: 'name1',
+		desc: 'long description 1',
+		show: false,
+	},
+	{
+		id: id(),
+		name: 'name2',
+		desc: 'long description 2',
+		show: false,
+	},
+	{
+		id: id(),
+		name: 'name3',
+		desc: 'long description 3',
+		show: false,
+	},
+];
 // const id = 'IWSpfBPSV3SXgRF87uO74';
 const newElem = {
 	id: 'GMNCZnFT4rbBP6cirA0Ha',
@@ -126,6 +146,30 @@ const initProds = [
 	{id: id(), nameHead: 'Name', name: 'prod1', nameCatg: 'catalog', catg: 'catg1', cost: 100},
 	{id: id(), nameHead: 'Name', name: 'prod2', nameCatg: 'catalog', catg: 'catg2', cost: 200},
 	{id: id(), nameHead: 'Name', name: 'prod3', nameCatg: 'catalog', catg: 'catg3', cost: 300},
+];
+
+const initProds2 = [
+	{
+		id: id(),
+		name: 'prod1',
+		cost: 'cost1',
+		desc: 'long description 1',
+		comm: 'my super comment 1'
+	},
+	{
+		id: id(),
+		name: 'prod2',
+		cost: 'cost2',
+		desc: 'long description 2',
+		comm: 'my super comment 2'
+	},
+	{
+		id: id(),
+		name: 'prod3',
+		cost: 'cost3',
+		desc: 'long description 3',
+		comm: 'my super comment 3'
+	},
 ];
 
 function App() {
@@ -153,15 +197,66 @@ function App() {
 	const [valueTab3, setValueTab3] = useState('');
   const [notes4, setNotes4] = useState(initProds);
   const [notes5, setNotes5] = useState(initNotes);
+	const [editId, setEditId] = useState(null);
   const rows = notes4.map(function(item) {
 		return <tr key={item.id}>
 			<td>{item.name}</td>
 			<td>{item.cost}</td>
+      <td><button onClick={() => setEditId(item.id)}>edit</button></td>
       <td><button onClick={() => remItem2(item.id)}>remove</button></td>
 		</tr>;
 	});
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
 
-  console.log(notes4)
+	const [notes6, setNotes6] = useState(initNotes2);
+	const [notes7, setNotes7] = useState(initProds2);
+
+  const [valueText, setValueText] = useState('text');
+
+  const [valueText2, setValueText2] = useState('text2');
+	const [isEditText, setIsEditText] = useState(false);
+
+  let elemText;
+	if (!isEditText) {
+    console.log(valueText)
+		elemText = <span >
+			{valueText}
+		</span>;
+	} else {
+		elemText = <input
+			value={valueText}
+		/>;
+	}
+
+  let elemA, elemB, elemC;
+	if (visible1) {
+		elemA = <p>text1</p>;
+	} 
+  if (visible2) {
+		elemB = <p>text2</p>;
+  } 
+  if (visible3) {
+		elemC = <p>text3</p>;
+  }
+
+  function getValue3(prop) {
+    return notes4.reduce((res, note) => {
+      if (note.id === editId) {
+        return prop;
+      } else {
+        return res;
+      }
+    }, '');
+  }
+
+  function changeItem2(prop, event) {
+    console.log(prop)
+    setNotes4(notes4.map(note =>
+			note.id === editId ? {...note, [prop]: event.target.value} : note
+		));
+  }
 
   const rowsHead = initProds.map(function(item) {
 		return <tr key={item.id}>
@@ -203,9 +298,8 @@ function App() {
   function addItem() {
 		let obj = {
 			id: id(),
-			prop1: value1,
-			prop2: value2,
-			prop3: value3,
+			name: valueTab1,
+      cost: valueTab2,
 		};
 		
 		setNotes4([...notes4, obj]);
@@ -245,6 +339,53 @@ function App() {
 			<button onClick={() => remItem2(note.id)}>remove</button>
 		</p>;
 	});
+
+  const result8 = notes6.map(note => {
+		let desc;
+		if (note.show) {
+			desc = <i>{note.desc}</i>;
+		}
+		
+		return <p key={note.id}>
+			{note.name}
+      <button onClick={() => showDesc(note.id)}>show</button>
+			{desc}
+		</p>;
+	});
+  function showDesc(id) {
+    setNotes6(notes6.map(note => {
+      if (note.id === id) {
+        return {...note, show: !note.show};
+      } else {
+        return note;
+      }
+    }));
+  }
+
+  const result9 = notes7.map(note => {
+		let desc, comm;
+		if (note.show) {
+			desc = <i>{note.desc}</i>;
+      comm = <i>{note.comm}</i>
+		}
+		
+		return <li key={note.id}>
+			{note.name}
+      <button onClick={() => showDesc2(note.id)}>show</button>
+			<span>{desc}</span> 
+      <span>{comm}</span>
+      
+		</li>;
+	});
+  function showDesc2(id) {
+    setNotes7(notes7.map(note => {
+      if (note.id === id) {
+        return {...note, show: !note.show};
+      } else {
+        return note;
+      }
+    }));
+  }
 
   function startEdit(index) {
     setEditNum(index)
@@ -428,11 +569,34 @@ function App() {
           {rows}
         </tbody>
       </table>
-      <input value={valueTab1} onChange={event => setValueTab1(event.target.value)} />
-      <button onClick={addItem}>save</button>
+      <input value={valueTab1} onChange={event => setValueTab1(event.target.value)}  />
+      <input value={valueTab2} onChange={event => setValueTab2(event.target.value)}  />
+
+      <button onClick={addItem} >save</button>
     </div>
 
+    <div className='wrapper__box'>
+		  <button onClick={() => setVisible1(!visible1)}>{visible1 ? 'hideA' : 'showA'}</button>
+		  <button onClick={() => setVisible2(!visible2)}>{visible2 ? 'hideB' : 'showB'}</button>
+		  <button onClick={() => setVisible3(!visible3)}>{visible3 ? 'hideC' : 'showC'}</button>
+      {elemA} {elemB} {elemC}
+    </div>
 
+    <div className='wrapper__box'>
+      {result8}
+    </div>
+
+    <div className='wrapper__box'>
+      <ul>
+        {result9}
+      </ul>
+    </div>
+
+    <div className='wrapper__box'>
+      {elemText}
+      <button onClick={event => {setIsEditText(true); setValueText(valueText.value)}} >edit</button>
+      <button onClick={() => {setIsEditText(false);  }}>show</button>
+    </div>
 
   </div>
 }
