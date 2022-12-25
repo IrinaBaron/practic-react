@@ -1,15 +1,13 @@
 // import logo from './logo.svg';
 import './App.css';
+import { nanoid } from 'nanoid'
 
 import React, { useState } from 'react';
-// import uuid from 'react-uuid';
+import uuid from 'react-uuid';
 
-// const users = [
-//   { id: uuid(), name: 'user1', surn: 'surname1', age: 30},
-//   { id: uuid(), name: 'user2', surn: 'surname2', age: 31},
-//   { id: uuid(), name: 'user3', surn: 'surname3', age: 32},
-// ]
-
+function id() {
+  return uuid()
+}
 // function App() {
 //   const res = users.map(function(item) {
 //     return <li key={item.id}>
@@ -104,7 +102,7 @@ const initNotes = [
 		prop3: 'value33',
 	},
 ];
-const id = 'IWSpfBPSV3SXgRF87uO74';
+// const id = 'IWSpfBPSV3SXgRF87uO74';
 const newElem = {
 	id: 'GMNCZnFT4rbBP6cirA0Ha',
 	prop1: 'value41',
@@ -123,6 +121,12 @@ const prop = 'prop1';
 const valueProp = '!!!';
 const prop2 = 'prop2';
 const valueProp2 = '!!!';
+
+const initProds = [
+	{id: id(), nameHead: 'Name', name: 'prod1', nameCatg: 'catalog', catg: 'catg1', cost: 100},
+	{id: id(), nameHead: 'Name', name: 'prod2', nameCatg: 'catalog', catg: 'catg2', cost: 200},
+	{id: id(), nameHead: 'Name', name: 'prod3', nameCatg: 'catalog', catg: 'catg3', cost: 300},
+];
 
 function App() {
   const [value1, setValue1] = useState('2022-11-10');
@@ -144,7 +148,27 @@ function App() {
     prop2: 'value2',
     prop3: 'value3',
   });
-  const [notes4, setNotes4] = useState(initNotes)
+  const [valueTab1, setValueTab1] = useState('');
+	const [valueTab2, setValueTab2] = useState('');
+	const [valueTab3, setValueTab3] = useState('');
+  const [notes4, setNotes4] = useState(initProds);
+  const [notes5, setNotes5] = useState(initNotes);
+  const rows = notes4.map(function(item) {
+		return <tr key={item.id}>
+			<td>{item.name}</td>
+			<td>{item.cost}</td>
+      <td><button onClick={() => remItem2(item.id)}>remove</button></td>
+		</tr>;
+	});
+
+  console.log(notes4)
+
+  const rowsHead = initProds.map(function(item) {
+		return <tr key={item.id}>
+			<th>{item.nameHead}</th>
+			<th>{item.nameCatg}</th>
+		</tr>;
+	});
 
   const options = texts.map((text, index) => {
     return <option key={index} value={index}>{text}</option>
@@ -172,6 +196,21 @@ function App() {
     setObj({...obj, ...{[prop]: event.target.value}})
   }
 
+  function remItem2(id) {
+    setNotes4(notes4.filter(note => note.id !== id));
+  }
+
+  function addItem() {
+		let obj = {
+			id: id(),
+			prop1: value1,
+			prop2: value2,
+			prop3: value3,
+		};
+		
+		setNotes4([...notes4, obj]);
+	}
+
   const result2 = notes2.map((note, index) => {
     return <input key={index} value={note} onChange={event => changeHandler(index, event)} />
   });
@@ -188,11 +227,22 @@ function App() {
     </p>
   });
 
-  const result5 = notes4.map(note => {
+  const result5 = notes5.map(note => {
 		return <p key={note.id}>
 			<span>{note.prop1}</span>
 			<span>{note.prop2}</span>
 			<span>{note.prop3}</span>
+		</p>;
+	});
+
+  const result6 = notes4.reduce((res, note) => note.id === id ? note[prop] : res, '');
+
+  const result7 = notes4.map(note => {
+		return <p key={note.id}>
+			<span>{note.prop1}</span>
+			<span>{note.prop2}</span>
+			<span>{note.prop3}</span>
+			<button onClick={() => remItem2(note.id)}>remove</button>
 		</p>;
 	});
 
@@ -225,7 +275,7 @@ function App() {
   }
 
   function changeObj() {
-    setNotes4(notes4.map(note => {
+    setNotes5(notes5.map(note => {
       if(note.id === id) {
         return {...note, [prop]: valueProp, [prop2]: valueProp2};
       }  else {
@@ -355,11 +405,35 @@ function App() {
 
     <div className='wrapper__box'>
       {result5}
-      <button onClick={() => setNotes4(notes4.filter(note => note.id !== id))}>click for delete </button>
-      <button onClick={() => setNotes4([...notes4, newElem])} >click for add</button>
-      <button onClick={() => setNotes4(notes4.map(note => note.id === data.id ? data : note))}>click for change</button>
+      <button onClick={() => setNotes5(notes5.filter(note => note.id !== id))}>click for delete </button>
+      <button onClick={() => setNotes5([...notes5, newElem])} >click for add</button>
+      <button onClick={() => setNotes5(notes5.map(note => note.id === data.id ? data : note))}>click for change</button>
       <button onClick={changeObj}>click for change an element</button>
     </div>
+
+
+    <div className='wrapper__box-big'>
+      <table width={300}>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Cost
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+      <input value={valueTab1} onChange={event => setValueTab1(event.target.value)} />
+      <button onClick={addItem}>save</button>
+    </div>
+
+
+
   </div>
 }
 
