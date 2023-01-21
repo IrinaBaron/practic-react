@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid'
 
 import React, { useState } from 'react';
 import uuid from 'react-uuid';
+import Product from './Product';
+import User from './User';
 
 function id() {
   return uuid()
@@ -122,6 +124,12 @@ const initNotes2 = [
 		show: false,
 	},
 ];
+
+const initNotes3 = [
+	{text: 'note1', isEdit: false},
+	{text: 'note2', isEdit: false},
+	{text: 'note3', isEdit: false},
+];
 // const id = 'IWSpfBPSV3SXgRF87uO74';
 const newElem = {
 	id: 'GMNCZnFT4rbBP6cirA0Ha',
@@ -212,6 +220,35 @@ function App() {
 
 	const [notes6, setNotes6] = useState(initNotes2);
 	const [notes7, setNotes7] = useState(initProds2);
+  const [notes8, setNotes8] = useState(initNotes3);
+	
+	const result10 = notes8.map((note, index) => {
+		let elem;
+	
+    if (!note.isEdit) {
+      elem = <span  onClick={() => startEdit2(index)}>{note.text}</span>;
+    } else {
+      elem = <input
+			value={note.text}
+			onChange={event => changeNote2(index, event)}
+      onBlur={() => endEdit(index)}
+		/>;
+    }
+    
+    return <li key={index}>{elem}</li>;
+	});
+
+  function changeNote2(index, event) {
+    const copy = Object.assign([], notes8);
+    copy[index].text = event.target.value;
+    setNotes8(copy);
+  }
+
+  function endEdit(index) {
+    const copy = Object.assign([], notes8);
+    copy[index].isEdit = false;
+    setNotes8(copy);
+  }
 
   const [valueText, setValueText] = useState('text');
 
@@ -220,13 +257,11 @@ function App() {
 
   let elemText;
 	if (!isEditText) {
-    console.log(valueText)
-		elemText = <span >
-			{valueText}
-		</span>;
+		elemText = <span onClick={( ) => setIsEditText(true)} >{valueText}</span>;
 	} else {
 		elemText = <input
 			value={valueText}
+      onChange= { event => setValueText(event.target.value)} 
 		/>;
 	}
 
@@ -451,153 +486,170 @@ function App() {
     setNotes1([...notes1.slice(0, index), ... notes.slice(index + 1)])
   }
 
-  return <div className='wrapper'>
+  function startEdit2(index) {
+    const copy = Object.assign([], notes8);
+    copy[index].isEdit = true;
+    setNotes8(copy)
+  }
 
-    <div className='wrapper__box'>
-      <input defaultValue={value1} onChange={e => setValue1(e.target.value)} />
+  return <div>
+    <Product name="product" cost="100" />
+    <User name="Ivan" surname="Ivanov" salary="2000" />
+    <User name="David" surname="Thompson" salary="2000" />
+    <User name="Jhon" surname="Down" salary="2000" />
 
-      <input defaultValue={value2} onChange={ e => setValue2(e.target.value)} />
-      <button onClick={handleChange}>btn</button>
-      <button onClick={addChange}>btn 2</button>
-      <textarea value={value3} onChange={e => setValue3(e.target.value)}/>
-      <p>{value3}</p>
-      <p>text: {result}</p>
-    </div>
+    <div className='wrapper'>
 
-    <div className='wrapper__box'>
-      <input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
-      <button onClick={() => setChecked(!checked)}>btn 2</button>
-      <p>состояние: {checked ? 'отмечен' : 'не отмечен'}</p>
-      <div>{message}</div>
-    </div>
+      <div className='wrapper__box'>
+        <input defaultValue={value1} onChange={e => setValue1(e.target.value)} />
 
-    <div className='wrapper__box'>
-      <select value={valueSelect} onChange={(e) => setValueSelect(e.target.value)}>
-        {options}
-      </select>
-      <p>
-        ваш выбор: {texts[valueSelect]}
-      </p>
-    </div>
-
-    <div className='wrapper__box'>
-      <label>
-        <input type="radio" value="HTML" name="radio" checked={value === 'HTML' ? true : false} onChange={e => setValue(e.target.value)} />
-        HTML
-      </label>
-      <label>
-        <input type="radio" value="JS" name="radio" checked={value === 'JS' ? true : false} onChange={e => setValue(e.target.value)}/>
-        JS
-      </label>
-      <label>
-        <input type="radio" value="CSS" name="radio" checked={value === 'CSS' ? true : false} onChange={e => setValue(e.target.value)}/>
-        CSS
-      </label>
-      <p>{value === 'JS' ?  value + ' вы молодец' : value}</p>
-
-    </div>
-
-    <div className='wrapper__box'>
-      <button onClick={addElem} onChange={addElem}>add elem in arr</button>
-      <button onClick={removeElem} onChange={removeElem}>remove elem from arr</button>
-      <div>
-
-        {resultArr}
+        <input defaultValue={value2} onChange={ e => setValue2(e.target.value)} />
+        <button onClick={handleChange}>btn</button>
+        <button onClick={addChange}>btn 2</button>
+        <textarea value={value3} onChange={e => setValue3(e.target.value)}/>
+        <p>{value3}</p>
+        <p>text: {result}</p>
       </div>
+
+      <div className='wrapper__box'>
+        <input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
+        <button onClick={() => setChecked(!checked)}>btn 2</button>
+        <p>состояние: {checked ? 'отмечен' : 'не отмечен'}</p>
+        <div>{message}</div>
+      </div>
+
+      <div className='wrapper__box'>
+        <select value={valueSelect} onChange={(e) => setValueSelect(e.target.value)}>
+          {options}
+        </select>
+        <p>
+          ваш выбор: {texts[valueSelect]}
+        </p>
+      </div>
+
+      <div className='wrapper__box'>
+        <label>
+          <input type="radio" value="HTML" name="radio" checked={value === 'HTML' ? true : false} onChange={e => setValue(e.target.value)} />
+          HTML
+        </label>
+        <label>
+          <input type="radio" value="JS" name="radio" checked={value === 'JS' ? true : false} onChange={e => setValue(e.target.value)}/>
+          JS
+        </label>
+        <label>
+          <input type="radio" value="CSS" name="radio" checked={value === 'CSS' ? true : false} onChange={e => setValue(e.target.value)}/>
+          CSS
+        </label>
+        <p>{value === 'JS' ?  value + ' вы молодец' : value}</p>
+
+      </div>
+
+      <div className='wrapper__box'>
+        <button onClick={addElem} onChange={addElem}>add elem in arr</button>
+        <button onClick={removeElem} onChange={removeElem}>remove elem from arr</button>
+        <div>
+
+          {resultArr}
+        </div>
+      </div>
+
+      <div className='wrapper__box'>
+        <input value={valueInputArr} onBlur={() => setNotes1([...notes1, valueInputArr], setValueInputArr(''))} onChange={ e => setValueInputArr(e.target.value)} />
+
+        <ul>
+          {resultList}
+        </ul>
+      </div>
+
+      <div className='wrapper__box'>
+        {result2}
+        {middleSum(notes2)}
+      </div>
+
+      <div className='wrapper__box'>
+        <p> Click on elements</p>
+        {result4}
+        <input value={editNum ? notes3[editNum] : ''} onChange={editItem} onFocus={createItem} onBlur={stopEdit} />
+      </div>
+
+      <div className='wrapper__box'>
+        <span>{obj.prop1}</span>
+        <span>{obj.prop2}</span>
+        <span>{obj.prop3}</span>
+
+        <button onClick={() => setObj({...obj, ...{prop1: '!'}})}>change 1</button>
+        <button onClick={() => setObj({...obj, ...{prop2: '2222'}})}>change 2</button>
+        <button onClick={() => setObj({...obj, ...{prop3: '333'}})}>change 3</button>
+      </div>
+
+      <div className='wrapper__box'>
+        <input value={obj.prop1} onChange={e => handleChange2('prop1', e)} />
+        <input value={obj.prop2} onChange={e => handleChange2('prop2', e)} />
+        <input value={obj.prop3} onChange={e => handleChange2('prop3', e)} />
+
+        <br />
+        {obj.prop1} - {obj.prop2} - {obj.prop3}
+      </div>
+
+      <div className='wrapper__box'>
+        {result5}
+        <button onClick={() => setNotes5(notes5.filter(note => note.id !== id))}>click for delete </button>
+        <button onClick={() => setNotes5([...notes5, newElem])} >click for add</button>
+        <button onClick={() => setNotes5(notes5.map(note => note.id === data.id ? data : note))}>click for change</button>
+        <button onClick={changeObj}>click for change an element</button>
+      </div>
+
+
+      <div className='wrapper__box-big'>
+        <table width={300}>
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Cost
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
+        <input value={valueTab1} onChange={event => setValueTab1(event.target.value)}  />
+        <input value={valueTab2} onChange={event => setValueTab2(event.target.value)}  />
+
+        <button onClick={addItem} >save</button>
+      </div>
+
+      <div className='wrapper__box'>
+        <button onClick={() => setVisible1(!visible1)}>{visible1 ? 'hideA' : 'showA'}</button>
+        <button onClick={() => setVisible2(!visible2)}>{visible2 ? 'hideB' : 'showB'}</button>
+        <button onClick={() => setVisible3(!visible3)}>{visible3 ? 'hideC' : 'showC'}</button>
+        {elemA} {elemB} {elemC}
+      </div>
+
+      <div className='wrapper__box'>
+        {result8}
+      </div>
+
+      <div className='wrapper__box'>
+        <ul>
+          {result9}
+        </ul>
+      </div>
+
+      <div className='wrapper__box'>
+        {elemText}
+        <button onClick={event => {setIsEditText(true); setValueText(valueText.value)}} >edit</button>
+        <button onClick={() => setIsEditText(false)}>show</button>
+      </div>
+
+      <div className='wrapper__box'>
+        {result10}
+      </div>
+
     </div>
-
-    <div className='wrapper__box'>
-      <input value={valueInputArr} onBlur={() => setNotes1([...notes1, valueInputArr], setValueInputArr(''))} onChange={ e => setValueInputArr(e.target.value)} />
-
-      <ul>
-        {resultList}
-      </ul>
-    </div>
-
-    <div className='wrapper__box'>
-      {result2}
-      {middleSum(notes2)}
-    </div>
-
-    <div className='wrapper__box'>
-      <p> Click on elements</p>
-      {result4}
-      <input value={editNum ? notes3[editNum] : ''} onChange={editItem} onFocus={createItem} onBlur={stopEdit} />
-    </div>
-
-    <div className='wrapper__box'>
-      <span>{obj.prop1}</span>
-      <span>{obj.prop2}</span>
-      <span>{obj.prop3}</span>
-
-      <button onClick={() => setObj({...obj, ...{prop1: '!'}})}>change 1</button>
-      <button onClick={() => setObj({...obj, ...{prop2: '2222'}})}>change 2</button>
-      <button onClick={() => setObj({...obj, ...{prop3: '333'}})}>change 3</button>
-    </div>
-
-    <div className='wrapper__box'>
-      <input value={obj.prop1} onChange={e => handleChange2('prop1', e)} />
-      <input value={obj.prop2} onChange={e => handleChange2('prop2', e)} />
-      <input value={obj.prop3} onChange={e => handleChange2('prop3', e)} />
-
-      <br />
-      {obj.prop1} - {obj.prop2} - {obj.prop3}
-    </div>
-
-    <div className='wrapper__box'>
-      {result5}
-      <button onClick={() => setNotes5(notes5.filter(note => note.id !== id))}>click for delete </button>
-      <button onClick={() => setNotes5([...notes5, newElem])} >click for add</button>
-      <button onClick={() => setNotes5(notes5.map(note => note.id === data.id ? data : note))}>click for change</button>
-      <button onClick={changeObj}>click for change an element</button>
-    </div>
-
-
-    <div className='wrapper__box-big'>
-      <table width={300}>
-        <thead>
-          <tr>
-            <th>
-              Name
-            </th>
-            <th>
-              Cost
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-      <input value={valueTab1} onChange={event => setValueTab1(event.target.value)}  />
-      <input value={valueTab2} onChange={event => setValueTab2(event.target.value)}  />
-
-      <button onClick={addItem} >save</button>
-    </div>
-
-    <div className='wrapper__box'>
-		  <button onClick={() => setVisible1(!visible1)}>{visible1 ? 'hideA' : 'showA'}</button>
-		  <button onClick={() => setVisible2(!visible2)}>{visible2 ? 'hideB' : 'showB'}</button>
-		  <button onClick={() => setVisible3(!visible3)}>{visible3 ? 'hideC' : 'showC'}</button>
-      {elemA} {elemB} {elemC}
-    </div>
-
-    <div className='wrapper__box'>
-      {result8}
-    </div>
-
-    <div className='wrapper__box'>
-      <ul>
-        {result9}
-      </ul>
-    </div>
-
-    <div className='wrapper__box'>
-      {elemText}
-      <button onClick={event => {setIsEditText(true); setValueText(valueText.value)}} >edit</button>
-      <button onClick={() => {setIsEditText(false);  }}>show</button>
-    </div>
-
   </div>
 }
 
