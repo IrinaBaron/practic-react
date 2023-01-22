@@ -99,4 +99,10 @@ table tr > th {
 
 .user {
   display: flex;
+
+}
+
+.user span {
+  margin: 0;
+  margin-inline: 10px;
 }

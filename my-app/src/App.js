@@ -4,12 +4,13 @@ import { nanoid } from 'nanoid'
 
 import React, { useState } from 'react';
 import uuid from 'react-uuid';
-import Product from './Product';
-import User from './User';
+import Products from './Product';
+import Users from './User';
 
 function id() {
   return uuid()
 }
+
 // function App() {
 //   const res = users.map(function(item) {
 //     return <li key={item.id}>
@@ -179,6 +180,11 @@ const initProds2 = [
 		comm: 'my super comment 3'
 	},
 ];
+
+
+
+
+
 
 function App() {
   const [value1, setValue1] = useState('2022-11-10');
@@ -492,11 +498,24 @@ function App() {
     setNotes8(copy)
   }
 
+  // const resultUsers = users.map( user => {
+  //   console.log(user.id)
+  //   return <User key={user.id} name={user.name} surname={user.surname} salary={user.salary} />
+  // })
+
+
+
+
+
+
+
   return <div>
-    <Product name="product" cost="100" />
+    <Products />
+    <Users />
+    {/* <Product name="product" cost="100" />
     <User name="Ivan" surname="Ivanov" salary="2000" />
     <User name="David" surname="Thompson" salary="2000" />
-    <User name="Jhon" surname="Down" salary="2000" />
+    <User name="Jhon" surname="Down" salary="2000" /> */}
 
     <div className='wrapper'>
 
