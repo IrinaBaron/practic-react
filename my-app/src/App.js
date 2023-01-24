@@ -4,8 +4,9 @@ import { nanoid } from 'nanoid'
 
 import React, { useState } from 'react';
 import uuid from 'react-uuid';
-import Products from './Product';
-import Users from './User';
+import Products from './Products';
+import Product from './Product';
+import Users from './Users';
 
 function id() {
   return uuid()

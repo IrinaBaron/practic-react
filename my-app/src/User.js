@@ -1,41 +1,35 @@
-import React, { useState } from "react";
-import uuid from 'react-uuid';
+import React from "react";
+import UserField from "./UserField";
 
-function id() {
-  return uuid()
-}
-
-const initUsers = [
-	{id: id(), name: 'user1', surname: 'surn1', age: 30},
-	{id: id(), name: 'user2', surname: 'surn2', age: 31},
-	{id: id(), name: 'user3', surname: 'surn3', age: 32},
-];
-
-function Users() {
-  const [users, setUsers] = useState(initUsers);
-
-  const items = users.map( user => {
-    return <User 
-    key={user.id}
-    id={user.id}
-    name={user.name}
-    surname={user.surname}
-    age={user.age}
-    />
-    
-  })
-
-  return <div>
-    {items}
-  </div>
-}
-
-function User({ id, name, surname, age}) {
+function User({ id, name, surname, age, isEdit, editProd, toggleMode}) {
   return <div data-id={id} className="user">
-    name: <span>{name}</span>
-    surname: <span>{surname}</span>
-    age: <span>{age}</span>
+    name: <UserField 
+          id={id}
+          text={name}
+          type="name"
+          isEdit={isEdit}
+          editProd={editProd}
+          />
+    surname: <UserField 
+              id={id}
+              text={surname}
+              type="surname"
+              isEdit={isEdit}
+              editProd={editProd}
+              />
+    age: <UserField 
+          id={id}
+          text={age}
+          type="age"
+          isEdit={isEdit}
+          editProd={editProd}
+          />
+
+    {/* <span>{inBlock ? 'blocked' : 'unblock'}</span>
+    <button onClick={() => addInBlock(id)}>to block</button> */}
+
+  <button onClick={() => toggleMode(id)}>{isEdit ? 'save' : 'edit' }</button>
   </div>
 }
 
-export default Users
+export default User

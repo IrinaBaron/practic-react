@@ -1,37 +1,28 @@
 import React, { useState } from "react";
 import uuid from 'react-uuid';
+import Products from "./Products";
+import ProductField from "./ProductField";
 
-function id() {
-  return uuid()
-}
-const initProds = [
-	{id: id(), name: 'product1', cost: 100},
-	{id: id(), name: 'product2', cost: 200},
-	{id: id(), name: 'product3', cost: 300},
-];
-
-function Products() {
-  const [prods, setProds] = useState(initProds);
-	
-	const items = prods.map(prod => {
-		return <Product 
-      key={prod.id}
-      id={prod.id}
-      name={prod.name}
-      cost={prod.cost}
-    />
-	});
-	
-	return <div>
-		{items}
-	</div>;
-}
-
-function Product({ id, name, cost}) {
+function Product({ id, name, cost, isEdit, toggleMode, editProd }) {
   return <div data-id={id}>
-    name: <span>{name}</span>
-    cost: <span>{cost}</span>
+    name: <ProductField id={id}
+          text={name}
+          type="name"
+          isEdit={isEdit}
+          editProd={editProd}
+          />
+    cost: <ProductField 
+          id={id}
+          text={cost}
+          type="cost"
+          isEdit={isEdit}
+          editProd={editProd}
+          />
+    {/* <span>{inCart ? 'in cart' : 'not in cart'}</span>
+    <button onClick={() => addToCart(id)}>to cart</button> */}
+
+    <button onClick={() => toggleMode(id)}>{isEdit ? 'save' : 'edit' }</button>
   </div>
 }
 
-export default Products
+export default Product
