@@ -15,6 +15,16 @@ const initProds = [
 function Products() {
   const [prods, setProds] = useState(initProds);
 
+  function changeField(id, field, event) {
+		setProds(prods.map(prod => {
+			if (prod.id == id) {
+				prod[field] = event.target.value;
+			}
+			
+			return prod;
+		}));
+	}
+
   function toggleMode(id) {
     setProds(prods.map(prod => {
       if (prod.id === id) {
@@ -52,8 +62,10 @@ function Products() {
 		name     ={prod.name}
 		cost     ={prod.cost}
 		isEdit   ={prod.isEdit}
+    inCart={prod.inCart}
 		toggleMode={toggleMode}
     editProd={editProd}
+    changeField={changeField}
     />
 	});
 	

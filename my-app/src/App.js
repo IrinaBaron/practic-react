@@ -153,9 +153,9 @@ const prop2 = 'prop2';
 const valueProp2 = '!!!';
 
 const initProds = [
-	{id: id(), nameHead: 'Name', name: 'prod1', nameCatg: 'catalog', catg: 'catg1', cost: 100},
-	{id: id(), nameHead: 'Name', name: 'prod2', nameCatg: 'catalog', catg: 'catg2', cost: 200},
-	{id: id(), nameHead: 'Name', name: 'prod3', nameCatg: 'catalog', catg: 'catg3', cost: 300},
+	{id: id(), nameHead: 'Name', name: 'prod1', nameCatg: 'catalog', catg: 'catg1', cost: 100, inCart: false},
+	{id: id(), nameHead: 'Name', name: 'prod2', nameCatg: 'catalog', catg: 'catg2', cost: 200, inCart: false},
+	{id: id(), nameHead: 'Name', name: 'prod3', nameCatg: 'catalog', catg: 'catg3', cost: 300, inCart: false},
 ];
 
 const initProds2 = [
@@ -182,7 +182,11 @@ const initProds2 = [
 	},
 ];
 
-
+const initProds3 = [
+	{id: id(), name: 'product1', cost: 100, inCart: false},
+	{id: id(), name: 'product2', cost: 200, inCart: false},
+	{id: id(), name: 'product3', cost: 300, inCart: false},
+];
 
 
 
