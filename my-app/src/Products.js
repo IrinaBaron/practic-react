@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import uuid from 'react-uuid';
 import Product from "./Product";
-import ProductField from "./ProductField";
+// import ProductField from "./ProductField";
 
 function id() {
   return uuid()

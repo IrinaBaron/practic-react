@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 function ProductField({ id, text, type, isEdit, editProd, changeField }) {
-	const [isEdit, setIsEdit] = useState(false); 
+	const [isEditField, setIsEditField] = useState(false); 
 	return isEdit
 		? <input value={text} onChange={event => changeField(id, type, event)} />
-		: <span onClick={() => setIsEdit(true)}>{text}</span>
+		: <span onClick={() => setIsEditField(true)}>{text}</span>
 	;
 }
 
