@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+}
+
+.listContainer {
+  position: relative;
+  
+}
+
+.list {
+  position: absolute;
+  top: 19px;
+  left: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}

@@ -1,0 +1,23 @@
+.userBox {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.avatarBox {
+  margin-right: 20px;
+  cursor: pointer;
+  transition: opacity .4s ease;
+}
+
+.avatarBox:hover {
+  opacity: 0.7;
+}
+
+.avatarImg {
+  width: 100%;
+}
+
+.username {
+  color: #000;
+}
