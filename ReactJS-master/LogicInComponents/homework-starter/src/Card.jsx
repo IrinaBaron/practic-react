@@ -10,8 +10,11 @@ export const Card = ({
   onDelete,
   isNew
 }) => {
-  const [isDone, setIsDone] = useState(done)
+  const [isDone, setIsDone] = useState(done);
+  const [valueTitle, setValueTitle] = useState(title)
+  // const []
   const handleTitleChange = (event) => {
+    setValueTitle(event.target.value)
     onTitleChange(id, event.target.value);
   };
 
@@ -45,7 +48,6 @@ export const Card = ({
     <form className="card" onSubmit={handleSubmit}>
       <input
         className="card__done"
-        ref={inputRef}
         id={id + '-01'}
         type="checkbox"
         checked={isDone}
@@ -55,8 +57,9 @@ export const Card = ({
 
       <input
         className="card__title"
+        ref={inputRef}
         type="text"
-        value={title}
+        value={valueTitle}
         id={id}
         onChange={handleTitleChange}
         onBlur={handleTitleBlur}

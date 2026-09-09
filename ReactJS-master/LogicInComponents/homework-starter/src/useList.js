@@ -7,6 +7,8 @@ export function useList() {
     { id: '003', title: 'сметана', done: false }
   ]);
 
+  const [changeTitle, setChangeTitle] = useState(null);
+
   /** Создать новый элемент. */
   const createItem = () => {
     const item = {
@@ -26,7 +28,18 @@ export function useList() {
    * @param title - Заголовок элемента.
    */
   const setItemTitle = (id, title) => {
+    setList(currentList => {
+      if (!currentList || !Array.isArray(currentList)) {
+        return currentList; 
+      }
 
+      return currentList.map(item => {
+        if (item.id === id) {
+          return { ...item, title: title };
+        }
+        return item;
+      })
+    })
   };
 
   /**
@@ -46,7 +59,13 @@ export function useList() {
    *
    * @param id - ID элемента.
    */
-  const deleteItem = (id) => {};
+  const deleteItem = (id) => {
+    setList(currentList => {
+      if (!currentList || !Array.isArray(currentList)) return currentList;
+
+      return currentList.filter(item => item.id !== id);
+    })
+  };
 
   return {
     list,
