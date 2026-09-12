@@ -10,17 +10,15 @@ export const Card = ({
   onDelete,
   isNew
 }) => {
-  const [isDone, setIsDone] = useState(done);
   const [valueTitle, setValueTitle] = useState(title)
-  // const []
+ 
   const handleTitleChange = (event) => {
     setValueTitle(event.target.value)
     onTitleChange(id, event.target.value);
   };
 
   const handleCheckboxChange = (e) => {
-    onToggle(id);
-    setIsDone(!isDone);
+    onToggle(id,!done);
   };
 
   const handleSubmit = (event) => {
@@ -44,13 +42,20 @@ export const Card = ({
     }
   }, []);
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); 
+      handleCheckboxChange(id);
+    }
+  };
+
   return (
     <form className="card" onSubmit={handleSubmit}>
       <input
         className="card__done"
         id={id + '-01'}
         type="checkbox"
-        checked={isDone}
+        checked={done}
         onChange={handleCheckboxChange}
         tabIndex={-1}
       />
@@ -62,6 +67,7 @@ export const Card = ({
         value={valueTitle}
         id={id}
         onChange={handleTitleChange}
+        onKeyDown={handleKeyDown}
         onBlur={handleTitleBlur}
       />
     </form>

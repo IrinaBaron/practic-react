@@ -12,7 +12,7 @@ export const CardList = ({
   
   return (
     <ul className="card-list">
-      {list.map(({ id, title, done }) => {
+      {list.map(({ id, title, done, isNew }) => {
         return (
           <li key={id} className="card-list__item">
             <Card
@@ -22,6 +22,7 @@ export const CardList = ({
               onTitleChange={onItemTitleChange}
               onToggle={onItemToggle}
               onDelete={onItemDelete}
+              isNew={isNew}
             />
           </li>
         );
