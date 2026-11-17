@@ -1,8 +1,19 @@
-export interface User {
-    id: string;
-    username?: string;
-    email: string;
-    password: string;
+import z from "zod";
+
+export const UserSchema = z.object({
+    id: z.string(),
+    username: z.string().optional(),
+    email: z.string(),
+    password: z.string().optional(),
+})
+
+export type User = z.infer<typeof UserSchema>;
+
+export function fetchUser(id:string): Promise<User> {
+    console.log(id)
+    return fetch(`/api/users/me/`, {
+        credentials: 'include',
+    }).then((response) => response.json()).then(data => UserSchema.parse(data));
 }
 
 export function registerUser (username:string, email: string, password: string):Promise<void> {

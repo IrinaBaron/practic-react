@@ -1,7 +1,13 @@
+import { FC } from "react";
+import { User } from "../../api/User";
 import "./UserView.css";
 
-export const UserView = () => {
-  const username = "Firstname Lastname";
+export interface UserViewProps {
+  user: User
+}
+
+export const UserView: FC<UserViewProps> = ({user}) => {
+  const username = `Firstname ${user.username}`;
 
   return (
     <div className="user-view">

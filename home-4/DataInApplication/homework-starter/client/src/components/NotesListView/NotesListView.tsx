@@ -1,27 +1,20 @@
 import "./NotesListView.css";
+import { FC } from "react";
 import { NoteView } from "../NoteView";
+import { NoteList } from "../../api/Note";
 
-export const NotesListView = () => {
+export interface NotesListViewProps {
+  noteList: NoteList;
+}
+
+export const NotesListView: FC<NotesListViewProps> = ({noteList}) => {
   return (
     <ul className="note-list-view">
-      <li>
-        <NoteView />
-      </li>
-      <li>
-        <NoteView />
-      </li>
-      <li>
-        <NoteView />
-      </li>
-      <li>
-        <NoteView />
-      </li>
-      <li>
-        <NoteView />
-      </li>
-      <li>
-        <NoteView />
-      </li>
+      {noteList.map((note) => (
+        <li key={note.id}>
+          <NoteView note={note} />
+        </li>
+      ))}
     </ul>
   );
 };
