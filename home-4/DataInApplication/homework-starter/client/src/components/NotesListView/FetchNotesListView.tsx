@@ -7,7 +7,7 @@ import { queryClient } from "../../api/queryClient";
 export const FetchNotesListView = () => {
     const noteListQuery = useQuery({
         queryFn: () => fetchNoteList(),
-        queryKey: ["posts"]
+        queryKey: ["notes"]
     }, queryClient)
 
     switch(noteListQuery.status) {

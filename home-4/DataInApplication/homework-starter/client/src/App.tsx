@@ -1,12 +1,14 @@
+import { QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
-import { AuthForm } from "./components/AuthForm";
-import { FetchNotesListView } from "./components/NotesListView/FetchNotesListView";
+import { Account } from "./components/Account/Account";
+import { queryClient } from "./api/queryClient";
 
 function App() {
   return (
     <div className="app">
-      <FetchNotesListView />
-      <AuthForm />
+      <QueryClientProvider client={queryClient}>
+        <Account />
+      </QueryClientProvider>
     </div>
   );
 }

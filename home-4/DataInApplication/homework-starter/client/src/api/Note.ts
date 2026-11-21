@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import z from "zod"
+import { validateResponse } from "./validateResponse";
 
 export const NoteSchema = z.object ({
     id: z.string(),
@@ -13,14 +14,6 @@ export type Note = z.infer<typeof NoteSchema>;
 
 export const NoteList = z.array(NoteSchema);
 export type NoteList = z.infer<typeof NoteList>
-
-// export function isNote(data:unknown): data is Note {
-//     return typeof data === 'object' && data !== null && 'id' in data && typeof data.id === 'string'
-//     && 'title' in data && typeof data.title === 'string'
-//     && 'text' in data && typeof data.text === 'string'
-//     && 'userId' in data && typeof data.userId === 'string'
-//     && 'createdAt' in data && typeof data.createdAt === 'number'
-// }
 
 export const FetchNoteListSchema = z.object({
     list: NoteList,
@@ -77,4 +70,16 @@ export function useNoteList() {
         state,
         refetch
     }
+}
+
+export function createNote(text: string, title: string): Promise<void> {
+    return fetch("/api/notes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({text, title}),
+    })
+    .then(validateResponse)
+    .then(() => undefined);
 }

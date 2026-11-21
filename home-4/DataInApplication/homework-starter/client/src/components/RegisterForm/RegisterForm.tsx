@@ -37,7 +37,7 @@ export const RegisterForm = () => {
       {registrationMutation.error &&
         ( <span>{registrationMutation.error.message}</span>)
       }
-      <Button type="submit"  title="registration" isLoading={registrationMutation.isPending}>Registration</Button>
+      <Button type="submit" title="registration" isLoading={registrationMutation.isPending}>Registration</Button>
     </form>
   );
 };

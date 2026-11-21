@@ -9,10 +9,10 @@ interface FetchUserViewProps {
     userId: string
 }
 
-export const FetchUserView: FC<FetchUserViewProps> = ({userId}) => {
+export const FetchUserView: FC<FetchUserViewProps> = () => {
     const userQuery = useQuery({
-        queryFn: () => fetchUser(userId),
-        queryKey: ['users', userId],
+        queryFn: () => fetchUser(),
+        queryKey: ['users', 'me'],
     }, queryClient);
 
     switch(userQuery.status) {

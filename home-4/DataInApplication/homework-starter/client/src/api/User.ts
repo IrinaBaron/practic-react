@@ -1,4 +1,5 @@
 import z from "zod";
+import { validateResponse } from "./validateResponse";
 
 export const UserSchema = z.object({
     id: z.string(),
@@ -9,8 +10,7 @@ export const UserSchema = z.object({
 
 export type User = z.infer<typeof UserSchema>;
 
-export function fetchUser(id:string): Promise<User> {
-    console.log(id)
+export function fetchUser(): Promise<User> {
     return fetch(`/api/users/me/`, {
         credentials: 'include',
     }).then((response) => response.json()).then(data => UserSchema.parse(data));
@@ -26,13 +26,7 @@ export function registerUser (username:string, email: string, password: string):
     }).then(() => undefined)
 }
 
-async function validateResponse (response: Response): Promise<Response> {
-    if(!response.ok) {
-        throw new Error(await response.text())
-    }
 
-    return response;
-}
 
 export function login(email: string, password: string): Promise<void> {
     return fetch("/api/login", {
@@ -44,4 +38,18 @@ export function login(email: string, password: string): Promise<void> {
     })
     .then(validateResponse)
     .then(() => undefined)
+}
+
+export function logout(): Promise<void> {
+    return fetch("/api/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(() => undefined)
+}
+
+export function fetchMe(): Promise<User> {
+    return fetch("/api/users/me").then(validateResponse).then(response => response.json()).then(data => UserSchema.parse(data));
 }
